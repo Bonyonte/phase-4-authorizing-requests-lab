@@ -7,6 +7,7 @@ class MembersOnlyArticlesController < ApplicationController
   end
 
   def show
+    return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
     article = Article.find(params[:id])
     render json: article
   end
